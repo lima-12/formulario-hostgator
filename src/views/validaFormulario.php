@@ -4,8 +4,8 @@
 
 if(isset($_POST['submit'])){
     
-    include_once('class/class.SQL.php');
-    $sql = new SQL();
+    require_once '../Model/Usuario.php';
+    $sql = new Usuario();
     
     $result = $sql->find($_POST['email']); 
     // echo'<pre>'; print_r($verificaUser); echo'</pre>'; exit;
@@ -27,7 +27,7 @@ if(isset($_POST['submit'])){
         );
 
         if($result){
-            header('Location: sistema.php'); 
+            header('Location: lista-usuario.php'); 
             exit;
         } else {
             echo "Location: formulario.php?erro=2";

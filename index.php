@@ -31,7 +31,7 @@
     <?php  endif; ?>
 
     <div class="row container-fluid d-flex align-items-center justify-content-center" style="height: 100vh;">
-        <div class="col-4 card p-2 border-0" id="card-esquerda">
+        <div class="col-12 col-md-6 col-lg-4 card p-2 border-0">
             <div class="card-header text-center">
                 <h2 class="mb-3 fw-bold">DevLima</h2>
                 <!-- <img src="img/php.png" alt="" class="mb-3" height="50" width="50"> -->
@@ -50,7 +50,7 @@
                     </div>
                     
                     <button type="submit" name="submit" value="enviar" class="btn btn-primary w-100 mb-2"> Entrar </button>
-                    <a href="formulario.php" class="btn btn-primary w-100">Cadastre-se</a>
+                    <a href="src/views/formulario.php" class="btn btn-primary w-100">Cadastre-se</a>
                 </form>
             </div>
         </div>
