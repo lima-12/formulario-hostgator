@@ -1,0 +1,14 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+
+    --color-primary-1: #75adc5;
+    --color-primary-2: #3596B5;
+    --color-primary-3: #296073;
+    --color-primary-4: #0E0054;
+    
+    /* color: red; */
+}
+
+th , td {
+    text-align: left;
+}

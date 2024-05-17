@@ -46,7 +46,7 @@ class Usuario {
 
     } 
 
-    function insert($nome, $email, $telefone, $sexo, $data_nasc, $cidade, $estado, $endereco, $senha){
+    function insert($nome, $email, $telefone, $data_nasc, $cidade, $estado, $endereco, $senha){
 
         try {
             $stmt = $this->pdo->prepare("
@@ -104,7 +104,6 @@ class Usuario {
                     nome        = :nome,
                     email       = :email, 
                     telefone    = :telefone, 
-                    sexo        = :sexo, 
                     data_nasc   = :data_nasc, 
                     cidade      = :cidade, 
                     estado      = :estado, 
@@ -116,7 +115,6 @@ class Usuario {
             $stmt->bindParam(':nome', $nome);
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':telefone', $telefone);
-            $stmt->bindParam(':sexo', $sexo);
             $stmt->bindParam(':data_nasc', $data_nasc);
             $stmt->bindParam(':cidade', $cidade);
             $stmt->bindParam(':estado', $estado);
