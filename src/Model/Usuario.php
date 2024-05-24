@@ -85,10 +85,10 @@ class Usuario {
             $stmt->bindParam(':senha', $senha);
     
             // Executa a declaração
-            $stmt->execute();
+            return $stmt->execute();
     
             // Retorna o ID do último registro inserido, se necessário
-            return $this->pdo->lastInsertId();
+            // return $this->pdo->lastInsertId();
         } catch(PDOException $e) {
             // Se houver uma exceção, imprime o erro
             return "Erro: " . $e->getMessage();

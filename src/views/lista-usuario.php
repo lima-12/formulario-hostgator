@@ -3,7 +3,7 @@
 session_start();
 
 if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
-    header('Location: index.php');
+    header('Location: ../../index.php');
     exit(); 
 }
 
@@ -13,7 +13,7 @@ $sql = new Usuario();
 $aUsuarios = $sql->getAll();
 
 $userAtual = $sql->find($_SESSION['email']);
-// echo'<pre>'; print_r($userAtual); echo'</pre>'; exit;
+// echo'<pre>'; print_r($userAtual); echo'</pre>'; exit;	
 
 ?>
 
@@ -39,18 +39,22 @@ $userAtual = $sql->find($_SESSION['email']);
 			<table class="table table-hover" >
 				<thead>
 					<tr>
-						<th scope="col">Name</th>
-						<th scope="col">Action</th>
+						<th scope="col" style="width: 52%;">Name</th>
+						<th scope="col" style="width: 48%;">Action</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					<?php foreach($aUsuarios as $user){ 
+					<?php foreach($aUsuarios as $user) { 
 
-						$valida = ($user['id'] === $userAtual[0]['id']) ? "" : "disabled";
+						// echo'<pre>'; print_r($user); echo'</pre>';
+
+						$valida = (($user['id'] === $userAtual[0]['id']) || ($userAtual[0]['admin'] == 1)) ? "" : "disabled";
 					?>
 						<tr>
-							<td> <?=$user['nome']?> </td>
+							<td> 
+								<?=$user['nome']?> 
+							</td>
 							<td>	
 								<button class='btn btn-sm btn-success' data-id="esconde<?=$user['id']?>" <?=$valida?>>
 									<i style="color: white;" class="bi bi-plus"></i>
@@ -75,19 +79,24 @@ $userAtual = $sql->find($_SESSION['email']);
 							<td colspan="2" id="esconde<?=$user['id']?>" style="display: none;">
 								<table>
 									<tr>
-										<td> Email: <?=$user['email']?> </td>
+										<td><strong>Email:</strong></td>
+										<td><?=$user['email']?></td>
 									</tr>
 									<tr>
-										<td> Telefone: <?=$user['telefone']?></td>
+										<td><strong>Telefone:</strong></td>
+										<td><?=$user['telefone']?></td>
 									</tr>
 									<tr>
-										<td> Data de Nascimento: <?=$user['data_nasc']?> </td>
+										<td><strong>Data de Nascimento:</strong></td>
+										<td><?=$user['data_nasc']?></td>
 									</tr>
 									<tr>
-										<td> <?=$user['cidade']?> - <?=$user['estado']?> </td>
+										<td><strong>Cidade - Estado:</strong></td>
+										<td><?=$user['cidade']?> - <?=$user['estado']?></td>
 									</tr>
 									<tr>
-										<td> Endereço: <?=$user['endereco']?>  </td>
+										<td><strong>Endereço:</strong></td>
+										<td><?=$user['endereco']?></td>
 									</tr>
 								</table>
 							</td>

@@ -26,7 +26,11 @@ if ( (isset($_POST['editar'])) && ($_POST['editar'] == 1) ) {
 
 if(isset($_POST['submit'])){
 
+    // echo'<pre>'; print_r($_POST); echo'</pre>'; exit;
+
     $result = $sql->find($_POST['email']); 
+
+    // echo'<pre>'; print_r($result); echo'</pre>'; exit;
     
     if(!empty($result)){
         # se for diferente de vazio significa que já existe um usuário com esse email 
@@ -34,7 +38,7 @@ if(isset($_POST['submit'])){
         exit;
     }
 
-    $result = $sql->insert(
+    $insert = $sql->insert(
         $_POST['nome'], 
         $_POST['email'], 
         $_POST['telefone'], 
@@ -45,7 +49,9 @@ if(isset($_POST['submit'])){
         $_POST['senha'], 
     );
 
-    if(!$result){
+    // echo'<pre>'; print_r($insert); echo'</pre>'; exit;
+
+    if(!$insert){
         header("Location: ../views/formulario.php?erro=2");
         exit;
     }
@@ -53,6 +59,9 @@ if(isset($_POST['submit'])){
     header('Location: ../views/lista-usuario.php');
     exit;
 
+} else {
+    header("Location: ../views/formulario.php?erro=3");
+    exit;
 }
 
 ?>

@@ -23,8 +23,8 @@
     <!-- modal personalizado -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
-    <link rel="icon" href="../views/img/php.png" type="image/png">
-    <link rel="stylesheet" href="../views/css/style.css">  
+    <link rel="icon" href="img/php.png" type="image/png">
+    <link rel="stylesheet" href="css/style.css">  
 
     <title>formulario - teste</title>
 
