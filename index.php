@@ -1,48 +1,28 @@
 <?php
 
-    if(isset($_REQUEST['acesso']) && $_REQUEST['acesso'] == "negado") {
-        // echo "<script>alert('email ou senha inválidos!');</script>";
-        $message = 'email ou senha inválidos!';
-    }
-
-    if(isset($_REQUEST['msg']) && $_REQUEST['msg'] == "deletado") {
-        // echo "<script>alert('email ou senha inválidos!');</script>";
-        $message = 'Conta Deletada!';
-    }
-
-    // $message = 'Conta Deletada!';
+    session_start();
 
 ?>
 
 
 
-<?php include_once "src/views/header.php" ?>
+<?php include_once "src/views/components/header.php" ?>
 
     <body>
 
-    <section>
+        <?php include_once "src/views/components/message.php" ?>
 
-        <div class="container mt-5 text-center">
-            <div class="row">
-                <div class="col-8 col-md-6 col-lg-4 mx-auto">
-                    <?php if(isset($message)) : ?>
-                        <div class="alert alert-danger" role="alert">
-                            <?=$message?>
-                        </div>
-                    <?php  endif; ?>
-                </div>
-            </div>
-        </div>
-
-        <div class="row d-flex align-items-center justify-content-center" style="height: 70vh;">
-            <div class="col-12 col-md-6 col-lg-4 card p-2 border-0">
-                <div class="card-body text-center">
+        <section class="container">
+            
+            <div class="row d-flex align-items-center justify-content-center" style="height: 70vh;">
+                <div class="col-12 col-md-6 col-lg-4 card p-2 border-0">
+                    <div class="card-body text-center">
                     <h2 class="mb-3 fw-bold">DevLima</h2>
                     <!-- <img src="img/php.png" alt="" class="mb-3" height="50" width="50"> -->
                     <h4 class="mb-3 fw-bold">Sistema de Cadastro</h4>
                 </div>
                 <div class="card-body text-center">  
-                    <form action="src/ajax/confirma-login.php" method="POST">
+                    <form action="src/controllers/login.php" method="POST">
 
                         <div class="form-floating mb-3">
                             <input type="email" class="form-control" name="email" id="email" placeholder="Email" required>
@@ -53,26 +33,32 @@
                             <label for="senha">Senha</label>
                         </div>
 
-                        <div class="d-flex justify-content-between m-1">
-                            <!-- <a href="src/views/formulario.php">Esqueci a Senha</a> -->
-                            <button type="submit" name="submit" value="enviar" class="btn btn-success mb-2"> Entrar </button>
+                        <div>
+                            <button type="submit" name="submit" value="enviar" class="w-100 btn btn-sm btn-success mb-4"> Entrar </button>
                         </div>
                         
                     </form>
+
+                    <div class="d-flex justify-content-between m-1">
+                        <a href="src/views/recupera-senha.php" style="text-decoration: none">Esqueci a Senha</a>
+                        <form action="src/controllers/login.php" method="POST">
+                            <button type="submit" name="submit" value="visitante" class="btn btn-sm btn-primary mb-2"> Visitante </button>
+                        </form>
+                    </div>
+
                 </div>
 
                 <hr>
 
                 <div class="d-flex justify-content-between m-2">
                     Ainda não tem Conta?
-                    <a href="src/views/formulario.php" class="btn btn-primary">Cadastre-se</a>
+                    <a href="src/views/formulario.php" class="btn btn-sm btn-primary">Cadastre-se</a>
                 </div>
 
             </div>
-        </div>
 
-    </section>
+        </section>
 
     </body>
 
-<?php include_once "src/views/footer.php" ?>
+<?php include_once "src/views/components/footer.php" ?>

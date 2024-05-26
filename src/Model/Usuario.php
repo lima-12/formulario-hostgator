@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Conexao.php';
+require_once '../config/Conexao.php';
 
 use PDO;
 use PDOException;
@@ -153,11 +153,71 @@ class Usuario {
         $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE email = ? AND senha = ?');
         $stmt->bindValue(1, $email, PDO::PARAM_STR);
         $stmt->bindValue(2, $id, PDO::PARAM_INT);
-        $stmt->execute();
         
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function updateRecuperaSenha($chave_recuperar_senha, $id) {
+        try {
+
+            $stmt = $this->pdo->prepare('
+                UPDATE usuarios 
+                SET recuperar_senha = :recuperar_senha 
+                WHERE id = :id
+            ');
+
+            $stmt->bindParam(':recuperar_senha', $chave_recuperar_senha, PDO::PARAM_STR);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+            return true;
+
+        } catch(PDOException $e) {
+            return "Erro: " . $e->getMessage();
+        }
+    }
+
+    function getRecuperaSenha($hash) {
+
+        try {
+
+            $stmt = $this->pdo->prepare('SELECT * FROM usuarios WHERE recuperar_senha = :recuperar_senha');
+            $stmt->bindParam(':recuperar_senha', $hash, PDO::PARAM_STR);
+
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch(PDOException $e) {
+            return "Erro: " . $e->getMessage();
+        }
+
+    }
+
+    function alterSenha($senha, $id) {
+        try {
+            $stmt = $this->pdo->prepare('
+                UPDATE usuarios 
+                SET 
+                    senha       = :senha_usuario,
+                    recuperar_senha     = :recuperar_senha
+                WHERE id = :id
+            ');
+
+            $stmt->bindParam(':senha_usuario', $senha, PDO::PARAM_STR);
+            $stmt->bindValue(':recuperar_senha', NULL, PDO::PARAM_NULL);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+            $stmt->execute();
+    
+            return true;
+
+        } catch(PDOException $e) {
+            return "Erro: " . $e->getMessage();
+        }
     }
 
 }

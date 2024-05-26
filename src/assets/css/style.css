@@ -12,3 +12,7 @@ body{
 th , td {
     text-align: left;
 }
+
+a {
+    text-decoration: none;
+}

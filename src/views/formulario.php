@@ -29,7 +29,7 @@ if (isset($_POST['id']) && !empty($_POST['id'])) {
 
 ?>
 
-    <?php include_once "header.php" ?>
+    <?php include_once "components/header.php" ?>
 
     <body>
 
@@ -48,7 +48,7 @@ if (isset($_POST['id']) && !empty($_POST['id'])) {
                     </div>
 
                     <div class="card-body">
-                        <form action="../ajax/valida-formulario.php" method="POST">        
+                        <form action="../controllers/valida-formulario.php" method="POST">        
                             <div class="row">
                                 <div class="col-12 col-md-6 col-lg-6 mb-2 form-floating">
                                     <input class="form-control" type="text" name="nome" id="nome" placeholder="Nome Completo" value="<?= $user['nome'] ?? '' ?>" required>
@@ -113,7 +113,7 @@ if (isset($_POST['id']) && !empty($_POST['id'])) {
     </body>
 
 
-<?php include_once "footer.php" ?>
+<?php include_once "components/footer.php" ?>
 
 <script>
 

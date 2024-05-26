@@ -2,24 +2,39 @@
 
 session_start();
 
-if (!isset($_SESSION['logado']) || $_SESSION['logado'] !== true) {
-    header('Location: ../../index.php');
-    exit(); 
-}
-
 require_once '../Model/Usuario.php';
 $sql = new Usuario();
 
-$aUsuarios = $sql->getAll();
+if(isset($_SESSION['logado']) && $_SESSION['logado'] == true) {
 
-$userAtual = $sql->find($_SESSION['email']);
-// echo'<pre>'; print_r($userAtual); echo'</pre>'; exit;	
+	$userAtual = $sql->find($_SESSION['email']);
+	// echo'<pre>'; print_r($userAtual); echo'</pre>'; exit;	
+
+}
+
+if (isset($_SESSION['visitante']) || $_SESSION['visitante'] == true) {
+	$userAtual[0]['nome'] = 'Visitante';
+}
+
+// if (!isset($_SESSION['logado']) || 
+// 	$_SESSION['logado'] !== true || 
+// 	!isset($_SESSION['visitante']) || 
+// 	$_SESSION['visitante'] !== true) {
+
+//     header('Location: ../../index.php');
+//     exit(); 
+// }
+
+
+
+$aUsuarios = $sql->getAll();
 
 ?>
 
-<?php include_once "header.php" ?>
-	<body>
+<?php include_once "components/header.php" ?>
 
+	<body>
+		
 		<nav class="navbar bg-body-tertiary">
 			<div class="container-fluid">
 				<!-- <form class="d-flex" role="search">
@@ -27,11 +42,12 @@ $userAtual = $sql->find($_SESSION['email']);
 					<button class="btn btn-outline-success" type="submit">Search</button>
 				</form> -->
 				
-				<a href="../ajax/sair.php" class="btn btn-outline-danger">sair</a>
+				<a href="../controllers/sair.php" class="btn btn-outline-danger">sair</a>
 			</div>
 		</nav>
-
-		<br>
+		
+		<?php include_once "components/message.php" ?>
+		
 
 		<h1 class="text-center"> Bem Vindo <?=$userAtual[0]['nome']?> </h1>
 
@@ -39,8 +55,8 @@ $userAtual = $sql->find($_SESSION['email']);
 			<table class="table table-hover" >
 				<thead>
 					<tr>
-						<th scope="col" style="width: 52%;">Name</th>
-						<th scope="col" style="width: 48%;">Action</th>
+						<th scope="col" style="width: 52%;">Nome</th>
+						<th scope="col" style="width: 48%;">Ação</th>
 					</tr>
 				</thead>
 
@@ -67,7 +83,7 @@ $userAtual = $sql->find($_SESSION['email']);
 									</button>
 								</form>
 								
-								<form action="../ajax/delete.php" method="post" style="display: inline;">
+								<form action="../controllers/delete.php" method="post" style="display: inline;">
 									<input type="hidden" name="id" value="<?=$user['id']?>">
 									<button class='btn btn-sm btn-danger btn-delete' data-id="<?=$user['id']?>" <?=$valida?>>
 										<i style="color: white;" class="bi bi-trash"></i>
@@ -79,23 +95,23 @@ $userAtual = $sql->find($_SESSION['email']);
 							<td colspan="2" id="esconde<?=$user['id']?>" style="display: none;">
 								<table>
 									<tr>
-										<td><strong>Email:</strong></td>
+										<td><strong>Email: </strong></td>
 										<td><?=$user['email']?></td>
 									</tr>
 									<tr>
-										<td><strong>Telefone:</strong></td>
+										<td><strong>Telefone: </strong></td>
 										<td><?=$user['telefone']?></td>
 									</tr>
 									<tr>
-										<td><strong>Data de Nascimento:</strong></td>
+										<td><strong>Data de Nascimento: </strong></td>
 										<td><?=$user['data_nasc']?></td>
 									</tr>
 									<tr>
-										<td><strong>Cidade - Estado:</strong></td>
+										<td><strong>Cidade - Estado: </strong></td>
 										<td><?=$user['cidade']?> - <?=$user['estado']?></td>
 									</tr>
 									<tr>
-										<td><strong>Endereço:</strong></td>
+										<td><strong>Endereço: </strong></td>
 										<td><?=$user['endereco']?></td>
 									</tr>
 								</table>
@@ -110,9 +126,7 @@ $userAtual = $sql->find($_SESSION['email']);
 
 	</body>
 
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<?php include_once "footer.php" ?>
+<?php include_once "components/footer.php" ?>
 
 <script>
 
@@ -151,16 +165,6 @@ $userAtual = $sql->find($_SESSION['email']);
 			$("#" + id).toggle(500);
 			$(this).find('i').toggleClass('bi-plus bi-dash');
 		});
-
-
-
-		// $('.btn-expand').on('click', function() {
-		// 	const userId = $(this).data('id');
-		// 	const extraInfoRow = $('#extra-info-' + userId);
-
-		// 	extraInfoRow.slideToggle();
-		// 	$(this).find('i').toggleClass('bi-plus bi-dash');
-		// });
 
     });
 </script>
