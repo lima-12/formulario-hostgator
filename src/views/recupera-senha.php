@@ -55,13 +55,7 @@ $mail = new PHPMailer(true);
 
                     /* variaveis padrao do envio de email */ 
 
-                    # usando o emailtrap
-                    // $mail->Host       = 'sandbox.smtp.mailtrap.io';
-                    // $mail->SMTPAuth   = true;
-                    // $mail->Username   = '0b5e8f7c6b21bf';
-                    // $mail->Password   = 'd02a60cb2fce16';
-                    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                    // $mail->Port       = 2525;
+
 
                     # usando o g-mail
                     $mail->Host       = 'smtp.gmail.com';
