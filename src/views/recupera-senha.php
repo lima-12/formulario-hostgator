@@ -2,7 +2,9 @@
 session_start();
 // ob_start();
 
-require_once '../Model/Usuario.php';
+require_once __DIR__ . "/../config/Config.php";
+require_once __DIR__ . '/../Model/Usuario.php';
+
 $sql = new Usuario();
 
 use PHPMailer\PHPMailer\PHPMailer;
@@ -47,7 +49,7 @@ $mail = new PHPMailer(true);
 
                 try {
                     // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
-                    $mail->SMTPDebug = 2; // Ativar a depuração
+                    // $mail->SMTPDebug = 2; // Ativar a depuração
                     $mail->CharSet = 'UTF-8';
                     $mail->isSMTP();
 
@@ -64,12 +66,10 @@ $mail = new PHPMailer(true);
                     # usando o g-mail
                     $mail->Host       = 'smtp.gmail.com';
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'limaufpa2022@gmail.com';
-                    $mail->Password   = 'lzyksjdvssigfeia'; // Use a senha de app gerada aqui
-                    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                    // $mail->Port       = 465;
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use STARTTLS
-                    $mail->Port       = 587; // Porta para STARTTLS
+                    $mail->Username   = EMAIL_USER;
+                    $mail->Password   = EMAIL_PASSWORD; 
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
+                    $mail->Port       = 587; 
 
                     $mail->setFrom('limaufpa2022@gmail.com', 'DevLima');
 
@@ -82,7 +82,7 @@ $mail = new PHPMailer(true);
 
                     $mail->send();
 
-                    $_SESSION['msg'] = "<p style='color: green'>Enviado e-mail com instruções para recuperar a senha. Acesse a sua caixa de e-mail para recuperar a senha!</p>";
+                    $_SESSION['message'] = "Enviado com sucesso! verifique sua caixa de e-mail";
                     
                     header("Location: ../../index.php");
                 } catch (Exception $e) {
