@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once '../Model/Usuario.php';
 $sql = new Usuario();
 
@@ -34,7 +36,8 @@ if(isset($_POST['submit'])){
     
     if(!empty($result)){
         # se for diferente de vazio significa que já existe um usuário com esse email 
-        header('Location: ../views/formulario.php?erro=1');
+        $_SESSION['message'] = 'Email já cadastrado!';
+        header('Location: ../views/formulario.php');
         exit;
     }
 
@@ -52,15 +55,17 @@ if(isset($_POST['submit'])){
     // echo'<pre>'; print_r($insert); echo'</pre>'; exit;
 
     if(!$insert){
-        header("Location: ../views/formulario.php?erro=2");
+        $_SESSION['message'] = 'usuario não inserido!';
+        header("Location: ../views/formulario.php");
         exit;
     }
 
-    header('Location: ../views/lista-usuario.php');
+    header("Location: ../../index.php");
     exit;
 
 } else {
-    header("Location: ../views/formulario.php?erro=3");
+    $_SESSION['message'] = 'usuario não inserido!';
+    header("Location: ../views/formulario.php");
     exit;
 }
 

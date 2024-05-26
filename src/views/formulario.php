@@ -34,9 +34,11 @@ if (isset($_POST['id']) && !empty($_POST['id'])) {
     <body>
 
         <!-- <button id="voltar"> <a href="home.php">Voltar</a> </button> -->
+
+        <?php include_once "components/message.php" ?>
         
         <div class="container"> <!-- container principal -->
-            <div class="row container-fluid d-flex align-items-center justify-content-center" style="height: 100vh;">
+            <div class="row container-fluid d-flex align-items-center justify-content-center" style="height: 70vh;">
                 <div class="col-12 col-md-12 col-lg-8 card p-2 border-0">    
 
                     <div class="card-body">
