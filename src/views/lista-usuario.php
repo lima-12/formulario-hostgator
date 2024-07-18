@@ -55,8 +55,8 @@ $aUsuarios = $sql->getAll();
 			<table class="table table-hover" >
 				<thead>
 					<tr>
-						<th scope="col" style="width: 52%;">Nome</th>
-						<th scope="col" style="width: 48%;">Ação</th>
+						<th scope="col" style="width: 52%;">nome</th>
+						<th scope="col" style="width: 48%;">ação</th>
 					</tr>
 				</thead>
 
